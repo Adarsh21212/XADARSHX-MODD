@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XADARSHX MOD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      color: #333;
+    }
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #007BFF;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .link a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Registration Page -->
+<div class="container" id="registerPage">
+  <h2>LOGIN WITH YOUR GAME DETAILS</h2>
+  <input type="number" id="phoneInput" placeholder="Enter 10-digit Phone Number" minlength="10" maxlength="10" required>
+  <input type="text" id="nameInput" placeholder="Enter YOUR PASSWORD" required>
+  <select id="gameSpinner">
+    <option value="51 Game">51 Game</option>
+    <option value="BDG WIN">BDG WIN</option>
+    <option value="91 CLUB">91 CLUB</option>
+    <option value="GOA GAME">GOA GAME</option>
+    <option value="BIG KOLKATA">BIG KOLKATA</option>
+    <option value="DM WIN">DM WIN</option>
+    <option value="DIU WIN">DIU WIN</option>
+    <option value="SIKKIM">SIKKIM</option>
+    <option value="82 LOTTERY">82 LOTTERY</option>
+    <option value="TIRANGA">TIRANGA</option>
+    <option value="TC LOTTERY">TC LOTTERY</option>
+    <option value="IN999">IN999</option>
+    <option value="BIG MUMBAI">BIG MUMBAI</option>
+  </select>
+  <button onclick="submitRegistration()">LOGIN</button>
+  <div class="link">
+    <a href="https://t.me/xadarshxmod" target="_blank">Join Telegram Channel</a>
+  </div>
+</div>
+
+<!-- Prediction Page -->
+<div class="container hidden" id="predictionPage">
+  <h2>MADE BY XADARSHX</h2>
+  <input type="number" id="threeDigitInput" placeholder="Enter 3-digit Number" minlength="3" maxlength="3" required>
+  <button onclick="makePrediction()">RESULT</button>
+  <div id="predictionResult" style="margin-top: 10px; text-align: center; font-size: 18px; color: #007BFF;"></div>
+  <button onclick="showAdminPanel()">Go to Admin Panel</button>
+</div>
+
+<!-- Admin Panel -->
+<div class="container hidden" id="adminPanel">
+  <h2>Admin Panel</h2>
+  <input type="password" id="adminPassword" placeholder="Enter Admin Password">
+  <button onclick="adminLogin()">Login</button>
+  <div id="adminContent" class="hidden">
+    <h3>Registered Members</h3>
+    <ul id="memberList"></ul>
+  </div>
+</div>
+
+<script>
+  const members = [];
+
+  function submitRegistration() {
+    const phone = document.getElementById('phoneInput').value;
+    const name = document.getElementById('nameInput').value;
+    const selectedGame = document.getElementById('gameSpinner').value;
+
+    if (phone.length !== 10 || isNaN(phone)) {
+      alert('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    if (name.trim() === '') {
+      alert('Please enter your password.');
+      return;
+    }
+
+    members.push({ phone, name, game: selectedGame });
+    alert('Registration successful!');
+    document.getElementById('registerPage').classList.add('hidden');
+    document.getElementById('predictionPage').classList.remove('hidden');
+  }
+
+  function makePrediction() {
+    const threeDigit = document.getElementById('threeDigitInput').value;
+
+    if (threeDigit.length !== 3 || isNaN(threeDigit)) {
+      alert('Please enter a valid 3-digit number.');
+      return;
+    }
+
+    const prediction = Math.random() > 0.5 ? 'BIG' : 'SMALL';
+    document.getElementById('predictionResult').textContent = `RESULT: ${prediction}`;
+  }
+
+  function showAdminPanel() {
+    document.getElementById('predictionPage').classList.add('hidden');
+    document.getElementById('adminPanel').classList.remove('hidden');
+  }
+
+  function adminLogin() {
+    const password = document.getElementById('adminPassword').value;
+
+    if (password === 'XADARSHX') {
+      document.getElementById('adminContent').classList.remove('hidden');
+      const memberList = document.getElementById('memberList');
+      memberList.innerHTML = '';
+      members.forEach((member, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. Name: ${member.name}, Phone: ${member.phone}, Game: ${member.game}`;
+        memberList.appendChild(li);
+      });
+    } else {
+      alert('Invalid password!');
+    }
+  }
+</script>
+
+</body>
+</html>
